@@ -16,13 +16,13 @@ jobs:
       - name: 2. Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: 3. Instalar dependencias
-        run: npm install
+        run: npm ci
 
       - name: 4. Construir proyecto (Build)
-        run: npm run build -- --configuration production
+        run: npm run build
 
       - name: 5. Desplegar por SFTP (SSH)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
