@@ -30,7 +30,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: sftp
           port: 22
           server-dir: /var/www/html/
           local-dir: ./dist/proyecto-series/browser/
