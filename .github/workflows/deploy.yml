@@ -1,0 +1,36 @@
+name: Deploy Angular a VPS IONOS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Descargar código
+        uses: actions/checkout@v3
+
+      - name: 2. Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 3. Instalar dependencias
+        run: npm install
+
+      - name: 4. Construir proyecto (Build)
+        run: npm run build -- --configuration production
+
+      - name: 5. Desplegar por SFTP (SSH)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: sftp
+          port: 22
+          server-dir: /var/www/html/
+          local-dir: ./dist/proyecto-series/browser/
